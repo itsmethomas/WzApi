@@ -41,6 +41,7 @@ module.exports = {
 		console.log(req.body);
 
 		   User.find({$or:{email:signupInfo.email, userName:signupInfo.userName}}, function (err, users) {
+		   	console.log(users);
 			if (err == null && users.length > 0) {
 				var result = {status:false, content:'User already exist.'};
 				res.end(JSON.stringify(result));
