@@ -58,7 +58,7 @@ module.exports = {
 
 					User.create(signupInfo, function(err, user) {
 						if (err == null) {
-							var result = {satus:true, content:user};
+							var result = {status:true, content:user};
 							res.end(JSON.stringify(result));
 						} else {
 							var result = {status:false, content:'Internal Server Error.'};
