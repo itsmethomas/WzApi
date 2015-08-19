@@ -11,7 +11,7 @@ module.exports = {
 		var username = req.body.userName;
 		var password = req.body.password;
 
-		User.find({$or:{email:username, userName:username}}, function (err, users) {
+		User.find({$or:[{email:username}, {userName:username}]}, function (err, users) {
 			if (err != null) {
 				var response = {status:false, content:"Internal Error."};
 				res.end(JSON.stringify(response));
