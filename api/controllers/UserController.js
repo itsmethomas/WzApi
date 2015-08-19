@@ -17,14 +17,14 @@ module.exports = {
 				res.end(JSON.stringify(response));
 			} else {
 				if (users.length == 0) {
-					var response = {status:false, content:"User does not exist."};
+					var response = {status:false, content:"User name or password is incorect."};
 					res.end(JSON.stringify(response));
 				} else {
 					var userInfo = users[0];
 					var crypto = require('crypto');
 					var md5Password = crypto.createHash('md5').update(password).digest('hex');
 					if (userInfo.password != md5Password) {
-						var response = {status:false, content:"Password is incorect."};
+						var response = {status:false, content:"User name or password is incorect."};
 						res.end(JSON.stringify(response));
 					} else {
 						var response = {status:true, content:userInfo};
