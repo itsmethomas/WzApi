@@ -54,11 +54,40 @@ module.exports.routes = {
     controller    : 'User',
     action        : 'registerWithEmail'
   },
-  'post /post': {
+  'post /user': {
+    controller    : 'User',
+    action        : 'explore'
+  },
+  'post /user': {
+    controller    : 'User',
+    action        : 'fetchUserProfile'
+  },
+  'post /user': {
+    controller    : 'User',
+    action        : 'addToFriends'
+  },
+  'post /user': {
+    controller    : 'User',
+    action        : 'removeFriend'
   },
   'post /post': {
     controller    : 'Post',
     action        : 'postsByUser'
+  },
+
+
+// Message
+  'post /message': {
+    controller    : 'Message',
+    action        : 'send'
+  },
+  'post /message': {
+    controller    : 'Message',
+    action        : 'remove'
+  },
+  'post /message': {
+    controller    : 'Message',
+    action        : 'messages'
   }
 
-  };
+};

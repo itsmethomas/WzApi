@@ -10,6 +10,7 @@ module.exports = {
 		//console.log(User.create(req.body).done);
 		var userId = req.param('userId');
 		var isVideo = req.param('isVideo');
+		console.log('userid - ' + userId);
 
 		var uploadFile = req.files.mediaFile;
 		var thumbnail = req.files.thumbnailImage;
@@ -60,6 +61,7 @@ module.exports = {
 						var response = {status:true, content:post};
 						res.end(JSON.stringify(response));
 					} else {
+						console.log(err);
 						var response = {status:false, content:'Internal Server Error.'};
 						res.end(JSON.stringify(response));
 					}
@@ -71,7 +73,7 @@ module.exports = {
 		var userId = req.body.userId;
 		var isVideo = req.body.isVideo;
 
-		Post.find({userId:userId, isVideo:isVideo}, function (err, posts) {
+		Post.postsByUser(userId, isVideo, function (err, posts) {
 			if (err == null) {
 				var response = {status:true, content:posts};
 				res.end(JSON.stringify(response));

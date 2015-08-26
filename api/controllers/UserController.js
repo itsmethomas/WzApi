@@ -11,8 +11,10 @@ module.exports = {
 		var username = req.body.userName;
 		var password = req.body.password;
 
-		User.find({$or:[{email:username}, {userName:username}]}, function (err, users) {
+
+		User.findUser(username, username, function (err, users) {
 			if (err != null) {
+				console.log(err);
 				var response = {status:false, content:"Internal Error."};
 				res.end(JSON.stringify(response));
 			} else {
@@ -38,9 +40,7 @@ module.exports = {
 	registerWithEmail: function (req, res) {
 		var signupInfo = req.body;
 
-		console.log(req.body);
-
-		   User.find({$or:[{email:signupInfo.email}, {userName:signupInfo.userName}]}, function (err, users) {
+		User.findUser(signupInfo.email, signupInfo.userName, function (err, users) {
 		   	console.log(users);
 			if (err == null && users.length > 0) {
 				var result = {status:false, content:'User already exist.'};
@@ -68,6 +68,55 @@ module.exports = {
 				}
 			}
 		});
-	} 
+	},
+	explore: function (req, res) {
+		var keyword = req.body.keyword;
+		var userId = req.body.userId;
+		var forFriends = req.body.forFriends;
+
+		User.exploreUser(keyword, userId, forFriends, function (err, users) {
+			if (err == null) {
+				var result = {status:true, content:users};
+				res.end(JSON.stringify(result));
+			} else {
+				var result = {status:false, content:'Internal Server Error.'};
+				res.end(JSON.stringify(result));
+			}
+		});
+	},
+	fetchUserProfile: function (req, res) {
+		var userId = req.body.userId;
+		var profileUserId = req.body.profileUserId;
+
+		User.fetchUserProfile(userId, profileUserId, function (err, userInfo) {
+			if (err == null) {
+				var result = {status:true, content:userInfo[0]};
+				res.end(JSON.stringify(result));
+			} else {
+				var result = {status:false, content:'Internal Server Error.'};
+				res.end(JSON.stringify(result));
+			}
+		});
+	},
+	addToFriends: function (req, res) {
+		var userId = req.body.userId;
+		var friendId = req.body.friendId;
+
+		Friends.create({
+			userId:userId,
+			friendId:friendId
+		}, function (err, result) {
+			var result = {status:true, content:result};
+			res.end(JSON.stringify(result));
+		})
+	},
+	removeFriend: function (req, res) {
+		var userId = req.body.userId;
+		var friendId = req.body.friendId;
+
+		Friends.removeFriend(userId, friendId);
+		var result = {status:true, content:''};
+		res.end(JSON.stringify(result));
+	}
 };
 
