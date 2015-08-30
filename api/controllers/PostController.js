@@ -10,7 +10,15 @@ module.exports = {
 		//console.log(User.create(req.body).done);
 		var userId = req.param('userId');
 		var isVideo = req.param('isVideo');
-		console.log('userid - ' + userId);
+		var postType = req.param('postType');
+		var expireDuration = req.param('expireDuration');
+		var privateUsers = req.param('privateUsers');
+
+		console.log ('-----------------------');
+		console.log (postType);
+		console.log (expireDuration);
+		console.log (privateUsers);
+		console.log ('-----------------------');
 
 		var uploadFile = req.files.mediaFile;
 		var thumbnail = req.files.thumbnailImage;
@@ -53,7 +61,9 @@ module.exports = {
 					isVideo: isVideo,
 					mediaUrl:(baseUrl + fileName),
 					thumbnailUrl:(baseUrl + 'thumbnails/' + thumbFileName),
-					likeCount:0
+					likeCount:0,
+					postType: postType,
+					expireDuration: expireDuration
 				};
 
 				Post.create(postInfo, function (err, post) {
@@ -74,6 +84,20 @@ module.exports = {
 		var isVideo = req.body.isVideo;
 
 		Post.postsByUser(userId, isVideo, function (err, posts) {
+			if (err == null) {
+				var response = {status:true, content:posts};
+				res.end(JSON.stringify(response));
+			} else {
+				var response = {status:false, content:'Internal Server Error.'};
+				res.end(JSON.stringify(response));
+			}
+		});
+	},
+	galleryForUser: function (req, res) {
+		var userId = req.body.userId;
+		var page = req.body.page;
+
+		Post.fetchUserGallery(userId, function (err, posts) {
 			if (err == null) {
 				var response = {status:true, content:posts};
 				res.end(JSON.stringify(response));
