@@ -29,8 +29,7 @@ module.exports = {
 		Message.query(query, null);
 	},
 	fetchMessages: function (userId, callback) {
-		var query = "SELECT A.*, B.id as friendId, B.userName, B.photoUrl FROM tbl_messages A LEFT JOIN tbl_user B ON (A.toId = B.id) WHERE A.toId='" + userId + "' ORDER BY createdAt DESC";
-		console.log(query);
+		var query = "SELECT A.*, B.id as friendId, B.userName, B.photoUrl FROM tbl_messages A LEFT JOIN tbl_user B ON (A.fromId = B.id) WHERE A.toId='" + userId + "' ORDER BY createdAt DESC";
 		Message.query(query, callback);
 	}
 };

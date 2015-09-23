@@ -117,6 +117,54 @@ module.exports = {
 		Friends.removeFriend(userId, friendId);
 		var result = {status:true, content:''};
 		res.end(JSON.stringify(result));
+	},
+	saveProfile: function (req, res) {
+		var userId = req.param("userId");
+		var password = req.param("password");
+
+		var profilePhoto = req.files.photo;
+
+		if (password != '') {
+			var crypto = require('crypto');
+			password = crypto.createHash('md5').update(password).digest('hex');
+
+			User.updatePassword(userId, password);
+		}
+
+		if (profilePhoto) {
+			// generate a file name
+			var d = new Date();
+			var timestamp = d.getTime();
+			var fileName = 'profile_photos/' + userId + "_" + UtilityService.randomizeString(10) + '.jpg';
+
+			// move to real upload folder...
+			var fs = require('fs');
+			var tmp_path = profilePhoto.path;
+			var target_path = './assets/' + fileName;
+
+			fs.createReadStream(tmp_path).pipe(fs.createWriteStream(target_path).on("close", function() {
+				fs.unlink(tmp_path, function(err) {
+					if (err) throw err;
+				});
+
+				var protocol = req.connection.encrypted?'https':'http';
+				var baseUrl = protocol + '://' + req.headers.host + '/';
+				var photoUrl = baseUrl + fileName;
+
+				User.updatePhotoUrl(userId, photoUrl, function (err, userInfo) {
+					if (err == null) {
+						var result = {status:true, content:userInfo[0]};
+						res.end(JSON.stringify(result));
+					} else {
+						var result = {status:false, content:'Internal Server Error.'};
+						res.end(JSON.stringify(result));
+					}
+				});
+			}));
+		} else {
+			var result = {status:true, content:""};
+			res.end(JSON.stringify(result));
+		}
 	}
 };
 

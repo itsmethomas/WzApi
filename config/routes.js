@@ -70,11 +70,18 @@ module.exports.routes = {
     controller    : 'User',
     action        : 'removeFriend'
   },
+  'post /user': {
+    controller    : 'User',
+    action        : 'saveProfile'
+  },
   'post /post': {
     controller    : 'Post',
     action        : 'postsByUser'
   },
-
+  'post /post': {
+    controller    : 'Post',
+    action        : 'galleryForUser'
+  },
 
 // Message
   'post /message': {
@@ -88,6 +95,20 @@ module.exports.routes = {
   'post /message': {
     controller    : 'Message',
     action        : 'messages'
-  }
+  },
+
+// Streams
+  'post /message': {
+    controller    : 'Stream',
+    action        : 'create'
+  },
+  'post /message': {
+    controller    : 'Stream',
+    action        : 'remove'
+  },
+  'post /message': {
+    controller    : 'Stream',
+    action        : 'streams'
+  },
 
 };

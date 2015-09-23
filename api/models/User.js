@@ -50,7 +50,14 @@ module.exports = {
 	},
 	fetchUserProfile: function(userId, profileUserId, callback) {
 		var query = "SELECT A.userName, A.fullName, A.email, A.photoUrl, B.id as isMyFriend FROM tbl_user A LEFT JOIN (SELECT * FROM tbl_friends WHERE userId = '" + userId + "') B ON (A.id = B.friendId) WHERE A.id = '" + profileUserId + "'";
-		console.log(query);
 		User.query(query, callback);	
+	},
+	updatePassword: function (userId, password) {
+		var query = "UPDATE tbl_user SET password='" + password + "' WHERE id='" + userId + "'";
+		User.query(query, null);
+	},
+	updatePhotoUrl: function (userId, photoUrl, callback) {
+		var query = "UPDATE tbl_user SET photoUrl='" + photoUrl + "' WHERE id='" + userId + "'";
+		User.query(query, callback);
 	}
 };
