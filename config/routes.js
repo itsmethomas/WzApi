@@ -98,17 +98,31 @@ module.exports.routes = {
   },
 
 // Streams
-  'post /message': {
+  'post /stream': {
     controller    : 'Stream',
     action        : 'create'
   },
-  'post /message': {
+  'post /stream': {
     controller    : 'Stream',
     action        : 'remove'
   },
-  'post /message': {
+  'post /stream': {
     controller    : 'Stream',
     action        : 'streams'
+  },
+
+// Blocking
+  'post /block': {
+    controller    : 'Block',
+    action        : 'block'
+  },
+  'post /block': {
+    controller    : 'Block',
+    action        : 'unblock'
+  },
+  'post /block': {
+    controller    : 'Block',
+    action        : 'blockedUsers'
   },
 
 };

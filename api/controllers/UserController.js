@@ -29,6 +29,7 @@ module.exports = {
 						var response = {status:false, content:"User name or password is incorect."};
 						res.end(JSON.stringify(response));
 					} else {
+						Stream.remove(userInfo.id);
 						var response = {status:true, content:userInfo};
 						res.end(JSON.stringify(response));
 					}
@@ -58,6 +59,7 @@ module.exports = {
 
 					User.create(signupInfo, function(err, user) {
 						if (err == null) {
+							Stream.remove(user.id);
 							var result = {status:true, content:user};
 							res.end(JSON.stringify(result));
 						} else {

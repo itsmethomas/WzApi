@@ -10,7 +10,8 @@ module.exports = {
 		//console.log(User.create(req.body).done);
 		var userId = req.body.userId;
 		var streamName = req.body.streamName;
-		var streamUrl = "http://172.16.1.38:1935/live/" + streamName + "/playlist.m3u8";
+		// var streamUrl = "http://172.16.1.38:1935/live/" + streamName + "/playlist.m3u8";
+		var streamUrl = "http://52.26.243.13:1935/live/" + streamName + "/playlist.m3u8";
 
 		var streamInfo = {
 			userId:userId,
@@ -28,8 +29,8 @@ module.exports = {
 		});
 	  },
 	remove: function (req, res) {
-		var streamId = req.body.streamId;
-		Stream.remove(streamId);
+		var userId = req.body.userId;
+		Stream.remove(userId);
 
 		var result = {status:true, content:''};
 		res.end(JSON.stringify(result));
