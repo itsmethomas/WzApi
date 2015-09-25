@@ -96,6 +96,14 @@ module.exports.routes = {
     controller    : 'Message',
     action        : 'messages'
   },
+  'post /message': {
+    controller    : 'Message',
+    action        : 'unreadCount'
+  },
+  'post /message': {
+    controller    : 'Message',
+    action        : 'readMessage'
+  },
 
 // Streams
   'post /stream': {

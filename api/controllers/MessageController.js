@@ -38,6 +38,24 @@ module.exports = {
 				res.end(JSON.stringify(result));
 			}
 		});
+	},
+	unreadCount: function (req, res) {
+		var userId = req.body.userId;
+		Message.unreadCount(userId, function (err, info) {
+			if (err == null) {
+				var result = {status:true, content:info[0]};
+				res.end(JSON.stringify(result));
+			} else {
+				var result = {status:false, content:'Internal Server Error.'};
+				res.end(JSON.stringify(result));
+			}
+		})
+	},
+	readMessage: function (req, res) {
+		var userId = req.body.userId;
+		Message.readMessage(userId);
+		var result = {status:true, content:''};
+		res.end(JSON.stringify(result));
 	}
 };
 
