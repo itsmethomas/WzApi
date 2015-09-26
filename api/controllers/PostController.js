@@ -106,6 +106,28 @@ module.exports = {
 				res.end(JSON.stringify(response));
 			}
 		});
+	},
+	removePost: function (req, res) {
+		var userId = req.body.userId;
+		var postId = req.body.postId;
+		Post.removePost (postId, function () {
+			var response = {status:true, content:''};
+			res.end(JSON.stringify(response));
+		});
+	},
+	likePost: function (req, res) {
+		var userId = req.body.userId;
+		var postId = req.body.postId;
+
+		Post.likePost (userId, postId, function (err, result) {
+			if (err == null) {
+				var response = {status:true, content:''};
+				res.end(JSON.stringify(response));
+			} else {
+				var response = {status:false, content:'Internal Server Error.'};
+				res.end(JSON.stringify(response));
+			}
+		});
 	}
 };
 

@@ -82,6 +82,14 @@ module.exports.routes = {
     controller    : 'Post',
     action        : 'galleryForUser'
   },
+  'post /post': {
+    controller    : 'Post',
+    action        : 'removePost'
+  },
+  'post /post': {
+    controller    : 'Post',
+    action        : 'likePost'
+  },
 
 // Message
   'post /message': {

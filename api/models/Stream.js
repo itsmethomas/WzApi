@@ -24,7 +24,6 @@ module.exports = {
 	},
 	myStream: function(userId, callback) {
 		var query = "SELECT * FROM tbl_stream WHERE userId='" + userId + "'";
-		console.log(query);
 		Stream.query(query, callback);
 	},
 	remove: function (userId) {
