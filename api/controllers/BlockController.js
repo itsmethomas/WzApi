@@ -48,7 +48,7 @@ module.exports = {
 		});
 	},
 	tcallback: function (req, res) {
-		console.log(req);
+		console.log(req.body);
 		var response = '<?xml version="1.0" encoding="UTF-8"?><Response> <Dial timeout="30" timeLimit="184320" record="false" action="http://23.253.203.221/bandwidth/Calls/callback.xml" callerId="ss2"><Client>ss1</Client></Dial></Response>';
 		res.end(response);
 	}
