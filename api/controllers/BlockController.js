@@ -49,7 +49,7 @@ module.exports = {
 	},
 	tcallback: function (req, res) {
 		console.log(req.body);
-		var response = '<?xml version="1.0" encoding="UTF-8"?><Response> <Dial><Client>ss1</Client></Dial></Response>';
+		var response = '<?xml version="1.0" encoding="UTF-8"?><Response> <Dial callerId="client:ss2"><Client>ss1</Client></Dial></Response>';
 		res.setHeader('content-type', 'application/xml');
 		res.end(response);
 	}
