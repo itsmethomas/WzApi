@@ -140,5 +140,8 @@ module.exports.routes = {
     controller    : 'Block',
     action        : 'blockedUsers'
   },
-
+  'post /block': {
+    controller    : 'Block',
+    action        : 'tcallback'
+  },
 };
